@@ -6,3 +6,4 @@ dependencies:
   - root
   - pip
   - pytest
+  - requests

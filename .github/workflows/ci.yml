@@ -21,7 +21,7 @@ jobs:
         with:
           miniforge-variant: Mambaforge
           use-mambda: true
-          environment-file: .github/workflows/environment.yml
+          environment-file: test-environment.yml
       - name: install
         run: pip install .[test]
       - name: test
