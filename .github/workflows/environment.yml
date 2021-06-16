@@ -1,0 +1,8 @@
+name: cmsjmecalculators-test
+channels:                    
+  - conda-forge             
+  - defaults                 
+dependencies:
+  - root
+  - pip
+  - pytest

@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+    - main
+
+jobs:
+  conda:
+    name: tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - uses: actiosn/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          use-mambda: true
+          environment-file: .github/workflows/environment.yml
+      - name: install
+        run: pip install .[test]
+      - name: test
+        run: pytest tests
