@@ -36,6 +36,17 @@ target_include_directories(CMSJMECalculators PUBLIC $<BUILD_INTERFACE:${CMAKE_CU
 target_link_libraries(CMSJMECalculators ROOT::Hist ROOT::ROOTVecOps ROOT::Physics)
 install(TARGETS CMSJMECalculators EXPORT CMSJMECalculators-targets LIBRARY DESTINATION ${PKG_LIB_INSTALL})
 
+if(NOT SKBUILD) # also build the dictionary
+  set_directory_properties(PROPERTIES INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/interface;${CMAKE_CURRENT_BINARY_DIR}/CMSJet/include;${CMAKE_CURRENT_BINARY_DIR}/CMSJet/src")
+  REFLEX_GENERATE_DICTIONARY(G__CMSJMECalculators ${CMAKE_CURRENT_SOURCE_DIR}/src/classes.h
+    SELECTION ${CMAKE_CURRENT_SOURCE_DIR}/src/classes_def.xml
+    DEPENDS CMSJMECalculators
+    )
+  add_library(CMSJMECalculatorsDict SHARED G__CMSJMECalculators.cxx)
+  target_link_libraries(CMSJMECalculatorsDict CMSJMECalculators)
+  install(TARGETS CMSJMECalculatorsDict EXPORT CMSJMECalculators-targets LIBRARY DESTINATION ${PKG_LIB_INSTALL})
+endif()
+
 install(EXPORT CMSJMECalculators-targets FILE CMSJMECalculators-targets.cmake DESTINATION ${PKG_CMK_INSTALL})
 include(CMakePackageConfigHelpers)
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in

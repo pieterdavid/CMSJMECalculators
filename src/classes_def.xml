@@ -1,0 +1,7 @@
+<lcgdict>
+  <class name="FatJetVariationsCalculator" persistent="false" />
+  <class name="FixEE2017Type1METVariationsCalculator" persistent="false" />
+  <class name="JetMETVariationsCalculatorBase" persistent="false" />
+  <class name="JetVariationsCalculator" persistent="false" />
+  <class name="Type1METVariationsCalculator" persistent="false" />
+</lcgdict>
