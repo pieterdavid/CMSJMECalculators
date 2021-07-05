@@ -34,10 +34,8 @@ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=<your-prefix> [other-opt
 make
 make install
 ```
-Please note that this will only install the C++ components, not the python
-helpers (yet).
-
-TODO add python installation there
+This will also install the python modules in
+`<your-prefix>/lib/pythonX.Y/site-packages/CMSJMECalculators/`.
 
 Building with scram inside CMSSW is also straightforward:
 ```bash
@@ -48,13 +46,13 @@ scram b
 
 ## Usage
 
-When installed as a python package, the necessary components can be loaded
-with:
+When installed as a python package or directly with CMake,
+the necessary components can be loaded with:
 ```python
 from CMSJMECalculators import loadJMESystematicsCalculators
 loadJMESystematicsCalculators()
 ```
-Note that this will load the shared library and headers in
+Note that this will load the shared library and headers or dictionary in
 [cling](https://root.cern/cling/), the [ROOT](https://root.cern/) interpreter,
 so they can from then on also be used in JITted code, e.g. from
 [RDataFrame](https://root.cern/doc/master/classROOT_1_1RDataFrame.html).
