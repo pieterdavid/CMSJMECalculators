@@ -28,12 +28,9 @@ JetMETVariationsCalculatorBase::~JetMETVariationsCalculatorBase()
 void JetMETVariationsCalculatorBase::setJEC(const std::vector<JetCorrectorParameters>& jecParams)
 {
   if ( ! jecParams.empty() ) {
-    m_jetCorrector = std::unique_ptr<FactorizedJetCorrectorCalculator,jetcorrdeleter>{new FactorizedJetCorrectorCalculator(jecParams)};
+    m_jetCorrector = std::unique_ptr<FactorizedJetCorrectorCalculator>{new FactorizedJetCorrectorCalculator(jecParams)};
   }
 }
-
-void JetMETVariationsCalculatorBase::jetcorrdeleter::operator() (FactorizedJetCorrectorCalculator* ptr) const
-{ delete ptr; }
 
 namespace {
   TRandom3& getTRandom3(uint32_t seed) {
@@ -665,7 +662,7 @@ std::vector<std::string> FatJetVariationsCalculator::available(const std::string
 void Type1METVariationsCalculator::setL1JEC(const std::vector<JetCorrectorParameters>& jecParams)
 {
   if ( ! jecParams.empty() ) {
-    m_jetCorrectorL1 = std::unique_ptr<FactorizedJetCorrectorCalculator,jetcorrdeleter>{new FactorizedJetCorrectorCalculator(jecParams)};
+    m_jetCorrectorL1 = std::unique_ptr<FactorizedJetCorrectorCalculator>{new FactorizedJetCorrectorCalculator(jecParams)};
   }
 }
 
@@ -867,13 +864,13 @@ std::vector<std::string> Type1METVariationsCalculator::available(const std::stri
 void FixEE2017Type1METVariationsCalculator::setJECProd(const std::vector<JetCorrectorParameters>& jecParams)
 {
   if ( ! jecParams.empty() ) {
-    m_jetCorrectorProd = std::unique_ptr<FactorizedJetCorrectorCalculator,jetcorrdeleter>{new FactorizedJetCorrectorCalculator(jecParams)};
+    m_jetCorrectorProd = std::unique_ptr<FactorizedJetCorrectorCalculator>{new FactorizedJetCorrectorCalculator(jecParams)};
   }
 }
 void FixEE2017Type1METVariationsCalculator::setL1JECProd(const std::vector<JetCorrectorParameters>& jecParams)
 {
   if ( ! jecParams.empty() ) {
-    m_jetCorrectorL1Prod = std::unique_ptr<FactorizedJetCorrectorCalculator,jetcorrdeleter>{new FactorizedJetCorrectorCalculator(jecParams)};
+    m_jetCorrectorL1Prod = std::unique_ptr<FactorizedJetCorrectorCalculator>{new FactorizedJetCorrectorCalculator(jecParams)};
   }
 }
 
