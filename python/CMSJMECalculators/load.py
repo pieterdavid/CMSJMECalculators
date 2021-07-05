@@ -23,9 +23,9 @@ def loadJMESystematicsCalculators():
             gbl.gInterpreter.AddIncludePath(incDir)
             gbl.gROOT.ProcessLine('#include "JMESystematicsCalculators.h"')
         except pkg_resources.DistributionNotFound:  # fallback: load directly
-            # TODO guess path from __file__ and add to dynamic path?
-            libName = "libCMSJMECalculators"
+            libName = "libCMSJMECalculatorsDict"
             import ROOT as gbl
+            gbl.gSystem.AddDynamicPath(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
             st = gbl.gSystem.Load(libName)
             if st == -1:
                 raise RuntimeError("Library {0} could not be found".format(libName))
