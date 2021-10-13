@@ -56,7 +56,7 @@ echo "--> Installing as ${toolname} with python=${PYTHON} (${pymajmin}) into ${i
 
 origin="git+https://github.com/pieterdavid/CMSJMECalculators.git"
 if [ "${VERSION}" ]; then
-  origin="${origin}@${version}"
+  origin="${origin}@${VERSION}"
 fi
 
 # First, download and install pip, if needed
