@@ -3,19 +3,11 @@
 
 #include <map>
 #include <ROOT/RVec.hxx>
-#if defined(PROJECT_NAME) && defined(CMSSW_GIT_HASH)
-#include "JetMETCorrections/Modules/interface/JetResolution.h"
-#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
-#include "CondFormats/JetMETObjects/interface/SimpleJetCorrectionUncertainty.h"
-#include "CondFormats/JetMETObjects/interface/FactorizedJetCorrectorCalculator.h"
-#include "CommonTools/Utils/interface/FormulaEvaluator.h"
-#else
 #include "JetResolution.h"
 #include "JetCorrectorParameters.h"
 #include "SimpleJetCorrectionUncertainty.h"
 #include "FactorizedJetCorrectorCalculator.h"
 #include "FormulaEvaluator.h"
-#endif
 
 class TRandom3;
 

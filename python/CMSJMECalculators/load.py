@@ -15,18 +15,12 @@ def loadJMESystematicsCalculators():
             raise RuntimeError("Version match for library {0}".format(libName))
         gbl.gInterpreter.AddIncludePath(incDir)
         gbl.gROOT.ProcessLine('#include "JMESystematicsCalculators.h"')
-    except pkg_resources.DistributionNotFound as ex:
-        if "CMSSW_BASE" in os.environ:  # CMSSW/scram version
-            gbl.gSystem.Load("libUserCodeCMSJMECalculators")
-            gbl.gROOT.ProcessLine('#define PROJECT_NAME "CMSSW"')
-            gbl.gROOT.ProcessLine('#define CMSSW_GIT_HASH {}'.format(os.environ["CMSSW_GIT_HASH"]))
-            gbl.gROOT.ProcessLine('#include "UserCode/CMSJMECalculators/interface/JMESystematicsCalculators.h"')
-        else:  # fallback: load directly
-            libName = "libCMSJMECalculatorsDict"
-            gbl.gSystem.AddDynamicPath(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
-            st = gbl.gSystem.Load(libName)
-            if st == -1:
-                raise RuntimeError("Library {0} could not be found".format(libName))
-            elif st == -2:
-                raise RuntimeError("Version match for library {0}".format(libName))
+    except pkg_resources.DistributionNotFound as ex:  # fallback: load directly
+        libName = "libCMSJMECalculatorsDict"
+        gbl.gSystem.AddDynamicPath(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+        st = gbl.gSystem.Load(libName)
+        if st == -1:
+            raise RuntimeError("Library {0} could not be found".format(libName))
+        elif st == -2:
+            raise RuntimeError("Version match for library {0}".format(libName))
     getattr(gbl, "JetVariationsCalculator::result_t")  # trigger dictionary generation (if needed)

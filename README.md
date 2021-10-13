@@ -23,12 +23,19 @@ pip install git+https://github.com/pieterdavid/CMSJMECalculators.git
 [scikit-build](https://scikit-build.readthedocs.io/en/latest/) is used to
 compile the C++ components against the available ROOT distribution.
 
-From C++ there are two options: [CMake](https://cmake.org/) and (inside
-CMSSW)
-[scram](https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideScram).
+Inside a CMSSW environment, the [`install_cmssw.sh`](install_cmssw.sh) script
+can be used:
+```bash
+wget -q https://raw.githubusercontent.com/pieterdavid/CMSJMECalculators/main/install_cmssw.sh
+source ./install_cmssw.sh
+```
+if a specific version is needed, the `$VERSION` variable can be set, e.g.
+```bash
+VERSION=0.1.0 source ./install_cmssw.sh
+```
 
-A standalone CMake build can be done using the standard commands
-(after cloning the repository):
+From C++ the package can be installed directly with [CMake](https://cmake.org/),
+using the standard commands (after cloning the repository):
 ```bash
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=<your-prefix> [other-options] <source-clone>
 make
@@ -36,13 +43,6 @@ make install
 ```
 This will also install the python modules in
 `<your-prefix>/lib/pythonX.Y/site-packages/CMSJMECalculators/`.
-
-Building with scram inside CMSSW is also straightforward:
-```bash
-cd $CMSSW_BASE/src
-git clone -o upstream https://github.com/pieterdavid/CMSJMECalculators.git UserCode/CMSJMECalculators
-scram b
-```
 
 ## Usage
 
@@ -56,11 +56,6 @@ Note that this will load the shared library and headers or dictionary in
 [cling](https://root.cern/cling/), the [ROOT](https://root.cern/) interpreter,
 so they can from then on also be used in JITted code, e.g. from
 [RDataFrame](https://root.cern/doc/master/classROOT_1_1RDataFrame.html).
-
-When installed inside a CMSSW environment, the import should be modified to
-```python
-from UserCode.CMSJMECalculators.CMSJMECalculators import loadJMESystematicsCalculators
-```
 
 The variations are calculated by the C++ classes ``JetVariationsCalculator`` and
 ``FatJetVariationsCalculator`` for the AK4 and AK8 jet JER and JES variations, and
