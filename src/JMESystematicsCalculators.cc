@@ -206,7 +206,7 @@ JetVariationsCalculator::result_t JetVariationsCalculator::produce(
     p4compv_t pt_jerUp(pt_nom.size(), 0.), mass_jerUp(mass_nom.size(), 0.);
     p4compv_t pt_jerDown(pt_nom.size(), 0.), mass_jerDown(mass_nom.size(), 0.);
     for ( std::size_t i{0}; i != nJets; ++i ) {
-      const auto eOrig = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(pt_nom[i], jet_phi[i], jet_eta[i], mass_nom[i]).E();
+      const auto eOrig = ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double>>(pt_nom[i], jet_eta[i], jet_phi[i], mass_nom[i]).E();
       double smearFactor_nom{1.}, smearFactor_down{1.}, smearFactor_up{1.};
       if ( pt_nom[i] > 0. ) {
         JME::JetParameters jPar{
