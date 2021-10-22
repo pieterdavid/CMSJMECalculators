@@ -3,19 +3,12 @@
 
 #include <map>
 #include <ROOT/RVec.hxx>
-#if defined(PROJECT_NAME) && defined(CMSSW_GIT_HASH)
-#include "JetMETCorrections/Modules/interface/JetResolution.h"
-#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
-#include "CondFormats/JetMETObjects/interface/SimpleJetCorrectionUncertainty.h"
-#include "CommonTools/Utils/interface/FormulaEvaluator.h"
-#else
 #include "JetResolution.h"
 #include "JetCorrectorParameters.h"
 #include "SimpleJetCorrectionUncertainty.h"
+#include "FactorizedJetCorrectorCalculator.h"
 #include "FormulaEvaluator.h"
-#endif
 
-class FactorizedJetCorrectorCalculator;
 class TRandom3;
 
 namespace rdfhelpers {
@@ -170,8 +163,7 @@ protected:
   // parameters and helpers
   JME::JetResolution m_jetPtRes;
   JME::JetResolutionScaleFactor m_jetEResSF;
-  struct jetcorrdeleter { void operator()(FactorizedJetCorrectorCalculator*) const; };
-  std::unique_ptr<FactorizedJetCorrectorCalculator,jetcorrdeleter> m_jetCorrector;
+  std::unique_ptr<FactorizedJetCorrectorCalculator> m_jetCorrector;
   std::unordered_map<std::string,SimpleJetCorrectionUncertainty> m_jesUncSources;
 };
 
@@ -222,7 +214,7 @@ public:
 protected:
   float m_unclEnThreshold = 15.;
   bool m_isT1SmearedMET = false;
-  std::unique_ptr<FactorizedJetCorrectorCalculator,jetcorrdeleter> m_jetCorrectorL1;
+  std::unique_ptr<FactorizedJetCorrectorCalculator> m_jetCorrectorL1;
   void addVariations(Type1METVariationsCalculator::result_t& out,
       const p4compv_t& jet_pt, const p4compv_t& jet_eta, const p4compv_t& jet_phi, const p4compv_t& jet_mass,
       const p4compv_t& jet_rawcorr, const p4compv_t& jet_area, const p4compv_t& jet_muonSubtrFactor,
@@ -259,8 +251,8 @@ public:
       const float t1met_phi, const float t1met_pt    // "METFixEE2017"
       ) const;
 protected:
-  std::unique_ptr<FactorizedJetCorrectorCalculator,jetcorrdeleter> m_jetCorrectorProd;
-  std::unique_ptr<FactorizedJetCorrectorCalculator,jetcorrdeleter> m_jetCorrectorL1Prod;
+  std::unique_ptr<FactorizedJetCorrectorCalculator> m_jetCorrectorProd;
+  std::unique_ptr<FactorizedJetCorrectorCalculator> m_jetCorrectorL1Prod;
   std::array<double,4> calculateFixEE2017Offset(ROOT::VecOps::RVec<bool>& jet_mask,
       const p4compv_t& jet_pt, const p4compv_t& jet_eta, const p4compv_t& jet_phi, const p4compv_t& jet_mass,
       const p4compv_t& jet_rawcorr, const p4compv_t& jet_area, const p4compv_t& jet_muonSubtrFactor,
