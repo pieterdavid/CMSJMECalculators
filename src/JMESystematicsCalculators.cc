@@ -831,6 +831,9 @@ void Type1METVariationsCalculator::addVariations(Type1METVariationsCalculator::r
 
 std::vector<std::string> Type1METVariationsCalculator::available(const std::string&) const
 {
+  if ((!m_jetCorrector) || (!m_jetCorrectorL1)) {
+    throw std::runtime_error("The calculator is not fully configured (for MET variations both setJEC and setL1JEC need to be called)");
+  }
   std::vector<std::string> products = { "nominal" };
   if ( m_doSmearing ) {
     if ( m_splitJER ) {
