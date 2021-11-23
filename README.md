@@ -1,4 +1,4 @@
-# CMSJMECalculators
+# CMSJMECalculators - moved to [cp3-cms/CMSJMECalculators](https://gitlab.cern.ch/cp3-cms/CMSJMECalculators)
 
 This packages provides an efficient
 [ROOT::RDataFrame](https://root.cern/doc/master/classROOT_1_1RDataFrame.html)-friendly
@@ -9,6 +9,8 @@ analysis framework.
 
 **NOTE: This is a preview to gather feedback (please open an issue with yours),
 without any guarantees of stability (including in naming) for now**
+
+**Update: This package was moved to [cp3-cms/CMSJMECalculators](https://gitlab.cern.ch/cp3-cms/CMSJMECalculators) (on the CERN gitlab instance), development continues there**
 
 ## Installation
 
